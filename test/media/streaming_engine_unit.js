@@ -997,6 +997,36 @@ describe('StreamingEngine', () => {
     });
   });
 
+  it('applies a small random delay to segment requests', async () => {
+    setupVod();
+    mediaSourceEngine =
+        new shaka.test.FakeMediaSourceEngine(segmentData);
+    const config = shaka.util.PlayerConfiguration.createDefault().streaming;
+    config.distributedRequests = true;
+    createStreamingEngine(config);
+
+    // Here we go!
+    streamingEngine.switchVariant(variant);
+    streamingEngine.switchTextStream(textStream);
+    await streamingEngine.start();
+    playing = true;
+
+    await runTest();
+    expect(mediaSourceEngine.endOfStream).toHaveBeenCalled();
+
+    // Verify buffers.
+    expect(mediaSourceEngine.initSegments).toEqual({
+      audio: [false, true],
+      video: [false, true],
+      text: [],
+    });
+    expect(mediaSourceEngine.segments).toEqual({
+      audio: [true, true, true, true],
+      video: [true, true, true, true],
+      text: [true, true, true, true],
+    });
+  });
+
   describe('switchVariant/switchTextStream', () => {
     let initialVariant;
     let sameAudioVariant;

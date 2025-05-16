@@ -1852,6 +1852,7 @@ shaka.extern.LiveSyncConfiguration;
 
 /**
  * @typedef {{
+ *   distributedRequests: boolean,
  *   retryParameters: shaka.extern.RetryParameters,
  *   failureCallback: function(!shaka.util.Error),
  *   rebufferingGoal: number,
@@ -1902,6 +1903,8 @@ shaka.extern.LiveSyncConfiguration;
  * @description
  * The StreamingEngine's configuration options.
  *
+ * @property {boolean} distributedRequests
+ *   Randomly distribute segment requests.
  * @property {shaka.extern.RetryParameters} retryParameters
  *   Retry parameters for segment requests.
  * @property {function(!shaka.util.Error)} failureCallback

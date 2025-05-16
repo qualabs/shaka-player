@@ -512,6 +512,8 @@ shakaDemo.Config = class {
         .addNumberInput_('Inaccurate Manifest Tolerance',
             'streaming.inaccurateManifestTolerance',
             /* canBeDecimal= */ true)
+        .addBoolInput_('Randomly distributed segment requests',
+            'streaming.distributedRequests')
         .addBoolInput_('Low Latency Mode', 'streaming.lowLatencyMode')
         .addBoolInput_('Prefer native DASH playback when available',
             'streaming.preferNativeDash')
