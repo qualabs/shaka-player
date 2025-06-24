@@ -2483,13 +2483,55 @@ shaka.extern.AdvancedAbrConfiguration;
 
 /**
  * @typedef {{
+ *   mode: string,
+ *   enabled: boolean,
+ *   useHeaders: boolean,
+ *   url: string,
+ *   includeKeys: !Array<string>
+ * }}
+ *
+ * @description
+ *  Common Media Client Data (CMCD) Target Configuration
+ *
+ * @property {string} mode
+ * Specifies the transmission strategy for the CMCD data.
+ * <br>
+ * Possible values are:
+ * <ul><li><b>'response'</b>: This mode reports data to one or more alternate
+ * destinations after either the full response or an error has been received
+ * to a media object request, using one of the Data Transmission Modes
+ * (header, query parameters, json object)
+ * </li></ul>
+ * @property {boolean} enabled
+ * If <code>true</code>, enable CMCD data to be sent with media requests.
+ * <br>
+ * Defaults to <code>false</code>.
+ * @property {boolean} useHeaders
+ * If <code>true</code>, the CMCD data is sent as HTTP request headers.
+ * If <code>false</code>, it is sent as query parameters in the URL.
+ * <br>
+ * Defaults to <code>false</code>.
+ * @property {string} url
+ * A specific URL to which the CMCD data will be sent.
+ * @property {!Array<string>} includeKeys
+ * An array of keys to include in the CMCD data.
+ * If not provided, all keys will be included.
+ * <br>
+ * Defaults to <code>[]</code>.
+ * @exportDoc
+ */
+shaka.extern.CmcdTarget;
+
+/**
+ * @typedef {{
  *   enabled: boolean,
  *   useHeaders: boolean,
  *   sessionId: string,
  *   contentId: string,
  *   rtpSafetyFactor: number,
  *   includeKeys: !Array<string>,
- *   version: number
+ *   version: number,
+ *   targets: ?Array<shaka.extern.CmcdTarget>
  * }}
  *
  * @description
@@ -2534,6 +2576,9 @@ shaka.extern.AdvancedAbrConfiguration;
  *   and CMCD v2 specifications, respectively.
  *   <br>
  *   Defaults to <code>1</code>.
+ * @property {Array<shaka.extern.CmcdTarget>=} targets
+ *   The event/response mode targets.
+ *   <br>
  * @exportDoc
  */
 shaka.extern.CmcdConfiguration;
@@ -2864,8 +2909,11 @@ shaka.extern.TextDisplayerConfiguration;
  * @property {shaka.extern.TextDisplayerConfiguration} textDisplayer
  *   Text displayer configuration and settings.
  * @property {shaka.extern.TextDisplayer.Factory} textDisplayFactory
- *   A factory to construct a text displayer. Note that, if this is changed
- *   during playback, it will cause the text tracks to be reloaded.
+ *   A factory to construct a text displayer. If this is changed during
+ *   playback, it will cause the text tracks to be reloaded. During playback it
+ *   may be called automatically if a change in
+ *   <code>webkitPresentationMode</code> is detected and
+ *   <code>setVideoContainer</code> has been called.
  * @exportDoc
  */
 shaka.extern.PlayerConfiguration;
