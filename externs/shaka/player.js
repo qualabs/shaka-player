@@ -2482,7 +2482,8 @@ shaka.extern.AdvancedAbrConfiguration;
  *   enabled: boolean,
  *   useHeaders: boolean,
  *   url: string,
- *   includeKeys: !Array<string>
+ *   includeKeys: !Array<string>,
+ *   events: !Array<string>
  * }}
  *
  * @description
@@ -2511,6 +2512,11 @@ shaka.extern.AdvancedAbrConfiguration;
  * @property {!Array<string>} includeKeys
  * An array of keys to include in the CMCD data.
  * If not provided, all keys will be included.
+ * <br>
+ * Defaults to <code>[]</code>.
+ * @property {!Array<string>} events
+ * An array of events to include as part of ps and sta in the CMCD data.
+ * If not provided, all events will be included.
  * <br>
  * Defaults to <code>[]</code>.
  * @exportDoc
