@@ -2484,7 +2484,9 @@ shaka.extern.AdvancedAbrConfiguration;
  *   enabled: boolean,
  *   useHeaders: boolean,
  *   url: string,
- *   includeKeys: !Array<string>
+ *   includeKeys: !Array<string>,
+ *   events: !Array<string>,
+ *   timeInterval: number,
  * }}
  *
  * @description
@@ -2515,6 +2517,15 @@ shaka.extern.AdvancedAbrConfiguration;
  * If not provided, all keys will be included.
  * <br>
  * Defaults to <code>[]</code>.
+ * @property {!Array<string>} events
+ * An array of events to include as part of ps and sta in the CMCD data.
+ * If not provided, all events will be included.
+ * <br>
+ * Defaults to <code>[]</code>.
+ * @property {number} timeInterval
+ *   Time Interval config in seconds
+ *   <br>
+ *   Defaults to <code>10</code>.
  * @exportDoc
  */
 shaka.extern.CmcdTarget;
