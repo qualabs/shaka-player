@@ -34,6 +34,7 @@
  *   rtp: (number|undefined),
  *   msd: (number|undefined),
  *   ltc: (number|undefined),
+ *   df: (number|undefined)
  * }}
  *
  * @description
@@ -197,5 +198,15 @@
  *   the origin and when it was rendered by the client. The accuracy of this
  *   estimate is dependent on synchronization between the packager and the
  *   player clocks.
+ *
+ *   @property {number} df
+ *   Dropped Frames
+ *
+ *   An absolute count of dropped frames since session initiation.
+ *   This key should only be sent for content types of `v`,`av` or `o`.
+ *   Note that this value will be driven by the content being rendered rather
+ *   than the content being retrieved, therefore it is beneficial
+ *   if accompanied by the playhead time `pt` key to allow for
+ *   correct interpretation.
  */
 var CmcdData;
