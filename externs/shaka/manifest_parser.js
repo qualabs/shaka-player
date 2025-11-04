@@ -135,6 +135,7 @@ shaka.extern.ManifestParser = class {
  *   updateDuration: function(),
  *   newDrmInfo: function(shaka.extern.Stream),
  *   onManifestUpdated: function(),
+ *   onMpdExpireUpdate: function(BufferSource),
  *   getBandwidthEstimate: function():number,
  *   onMetadata: function(string, number, ?number,
  *                        !Array<shaka.extern.MetadataFrame>):!Promise,
@@ -172,6 +173,9 @@ shaka.extern.ManifestParser = class {
  *   stream.
  * @property {function()} onManifestUpdated
  *   Should be called when the manifest is updated.
+ * @property {function(BufferSource)} onMpdExpireUpdate
+ *   Should be called when an MPD validity expiration event (value=3) is
+ *   received with new manifest data in the message data.
  * @property {function():number} getBandwidthEstimate
  *   Get the estimated bandwidth in bits per second.
  * @property {function(string, number, ?number,

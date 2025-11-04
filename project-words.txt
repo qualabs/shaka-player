@@ -46,6 +46,7 @@ mediasourcerecovered
 metadataadded
 mozfullscreenchange
 mozfullscreenerror
+mpdexpireupdate
 nativecontrols
 needkey
 newdemo
