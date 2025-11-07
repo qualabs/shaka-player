@@ -1495,6 +1495,182 @@ describe('MediaSourceEngine', () => {
     });
   });
 
+  describe('MPD validity expiration update via EMSG', () => {
+    let onManifestUpdateSpy;
+    let onMpdExpireUpdateSpy;
+
+    // EMSG box with scheme 'urn:mpeg:dash:event:2012' and value '3'
+    // indicating manifest validity expiration with manifest data
+    const emsgWithValue3 = shaka.util.Uint8ArrayUtils.fromHex(
+        // Box size (66 bytes) + 'emsg' + version 0 + flags
+        '00000042656d736700000000' +
+        // scheme_id_uri: 'urn:mpeg:dash:event:2012\0' (26 bytes including \0)
+        '75726e3a6d7065673a646173683a6576656e743a3230313200' +
+        // value: '3\0' (2 bytes including \0)
+        '3300' +
+        // timescale: 1000
+        '000003e8' +
+        // presentation_time_delta: 0
+        '00000000' +
+        // event_duration: 5000
+        '00001388' +
+        // id: 1
+        '00000001' +
+        // message_data: 'manifest' (8 bytes)
+        '6d616e6966657374');
+
+    // EMSG box with scheme 'urn:mpeg:dash:event:2012' and value '1'
+    // indicating a regular manifest update
+    const emsgWithValue1 = shaka.util.Uint8ArrayUtils.fromHex(
+        // Box size (62 bytes) + 'emsg' + version 0 + flags
+        '0000003e656d736700000000' +
+        // scheme_id_uri: 'urn:mpeg:dash:event:2012\0' (26 bytes including \0)
+        '75726e3a6d7065673a646173683a6576656e743a3230313200' +
+        // value: '1\0' (2 bytes including \0)
+        '3100' +
+        // timescale: 1000
+        '000003e8' +
+        // presentation_time_delta: 0
+        '00000000' +
+        // event_duration: 5000
+        '00001388' +
+        // id: 1
+        '00000001' +
+        // message_data: 'test' (4 bytes)
+        '74657374');
+
+    beforeEach(async () => {
+      onManifestUpdateSpy = jasmine.createSpy('onManifestUpdate');
+      onMpdExpireUpdateSpy = jasmine.createSpy('onMpdExpireUpdate');
+
+      captureEvents(videoSourceBuffer, ['updateend', 'error']);
+
+      const playerInterface = {
+        getKeySystem: () => null,
+        onMetadata: () => {},
+        onEmsg: () => {},
+        onEvent: () => {},
+        onManifestUpdate: onManifestUpdateSpy,
+        onMpdExpireUpdate: onMpdExpireUpdateSpy,
+      };
+
+      mediaSourceEngine = new shaka.media.MediaSourceEngine(
+          video,
+          mockTextDisplayer,
+          /** @type {!shaka.media.MediaSourceEngine.PlayerInterface} */ (
+            playerInterface),
+          shaka.util.PlayerConfiguration.createDefault().mediaSource);
+
+      const initObject = new Map();
+      initObject.set(ContentType.VIDEO, fakeVideoStream);
+      await mediaSourceEngine.init(initObject, false);
+    });
+
+    it('calls onMpdExpireUpdate when EMSG value is 3', async () => {
+      const initSegmentReference = new shaka.media.InitSegmentReference(
+          () => ['init://segment'],
+          0,
+          null,
+          null,
+          1000,
+          null);
+
+      const reference = new shaka.media.SegmentReference(
+          0,
+          10,
+          () => ['segment://uri'],
+          0,
+          null,
+          initSegmentReference,
+          0,
+          0,
+          Infinity);
+
+      fakeVideoStream.emsgSchemeIdUris = ['urn:mpeg:dash:event:2012'];
+
+      const appendPromise = mediaSourceEngine.appendBuffer(
+          ContentType.VIDEO, emsgWithValue3, reference, fakeVideoStream,
+          /* hasClosedCaptions= */ false);
+
+      videoSourceBuffer.updateend();
+      await appendPromise;
+
+      expect(onMpdExpireUpdateSpy).toHaveBeenCalledWith(
+          jasmine.any(Uint8Array));
+      expect(onManifestUpdateSpy).not.toHaveBeenCalled();
+    });
+
+    it('calls onManifestUpdate when EMSG value is not 3', async () => {
+      const initSegmentReference = new shaka.media.InitSegmentReference(
+          () => ['init://segment'],
+          0,
+          null,
+          null,
+          1000,
+          null);
+
+      const reference = new shaka.media.SegmentReference(
+          0,
+          10,
+          () => ['segment://uri'],
+          0,
+          null,
+          initSegmentReference,
+          0,
+          0,
+          Infinity);
+
+      fakeVideoStream.emsgSchemeIdUris = ['urn:mpeg:dash:event:2012'];
+
+      const appendPromise = mediaSourceEngine.appendBuffer(
+          ContentType.VIDEO, emsgWithValue1, reference, fakeVideoStream,
+          /* hasClosedCaptions= */ false);
+
+      videoSourceBuffer.updateend();
+      await appendPromise;
+
+      expect(onManifestUpdateSpy).toHaveBeenCalled();
+      expect(onMpdExpireUpdateSpy).not.toHaveBeenCalled();
+    });
+
+    it('verifies message data is passed correctly for value 3', async () => {
+      const initSegmentReference = new shaka.media.InitSegmentReference(
+          () => ['init://segment'],
+          0,
+          null,
+          null,
+          1000,
+          null);
+
+      const reference = new shaka.media.SegmentReference(
+          0,
+          10,
+          () => ['segment://uri'],
+          0,
+          null,
+          initSegmentReference,
+          0,
+          0,
+          Infinity);
+
+      fakeVideoStream.emsgSchemeIdUris = ['urn:mpeg:dash:event:2012'];
+
+      const appendPromise = mediaSourceEngine.appendBuffer(
+          ContentType.VIDEO, emsgWithValue3, reference, fakeVideoStream,
+          /* hasClosedCaptions= */ false);
+
+      videoSourceBuffer.updateend();
+      await appendPromise;
+
+      expect(onMpdExpireUpdateSpy).toHaveBeenCalled();
+      const /** ? */ calledWithData =
+        onMpdExpireUpdateSpy['calls']['argsFor'](0)[0];
+      expect(calledWithData).toEqual(jasmine.any(Uint8Array));
+      // Verify the message data contains 'manifest' (6d616e6966657374 in hex)
+      expect(calledWithData.length).toBeGreaterThan(0);
+    });
+  });
+
   describe('destroy', () => {
     beforeEach(async () => {
       captureEvents(audioSourceBuffer, ['updateend', 'error']);

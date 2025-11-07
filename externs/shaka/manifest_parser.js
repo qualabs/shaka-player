@@ -87,6 +87,16 @@ shaka.extern.ManifestParser = class {
   update() {}
 
   /**
+   * Updates the manifest using the provided manifest data (from an emsg event).
+   * This is used when an MPD validity expiration event (value=3) is received.
+   * Implementing this is optional.
+   *
+   * @param {BufferSource} data The manifest data from the emsg message data
+   * @exportDoc
+   */
+  updateFromData(data) {}
+
+  /**
    * Tells the parser that the expiration time of an EME session has changed.
    * Implementing this is optional.
    *
