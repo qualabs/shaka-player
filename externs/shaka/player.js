@@ -2646,11 +2646,6 @@ shaka.extern.AdvancedAbrConfiguration;
  * If <code>true</code>, enable CMCD data to be sent with media requests.
  * <br>
  * Defaults to <code>false</code>.
- * @property {boolean} useHeaders
- * If <code>true</code>, the CMCD data is sent as HTTP request headers.
- * If <code>false</code>, it is sent as query parameters in the URL.
- * <br>
- * Defaults to <code>false</code>.
  * @property {string} url
  * A specific URL to which the CMCD data will be sent.
  * @property {!Array<string>} includeKeys
