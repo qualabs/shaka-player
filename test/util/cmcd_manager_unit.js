@@ -1179,7 +1179,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
         const body = shaka.util.StringUtils.fromUTF8(request.body);
-        const parts = body.split(",");
+        const parts = body.split(',');
 
         // Expect to contain sid, cid, msd, ltc and v
         expect(parts.some((p) => p.startsWith('sid='))).toBe(true);
@@ -1233,12 +1233,11 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
         const body = shaka.util.StringUtils.fromUTF8(request.body);
-        const parts = body.split(",");
+        const parts = body.split(',');
 
         expect(parts.some((p) => p.startsWith('sid='))).toBe(true);
         expect(parts.some((p) => p.startsWith('msd='))).toBe(true);
         expect(parts.some((p) => p.startsWith('v=2'))).toBe(false);
-
       });
 
       it('filters keys in request mode based on includeKeys', () => {
@@ -1527,7 +1526,7 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
 
         expect(bodyParts.some((p) => p.startsWith('ltc='))).toBe(true);
       });
@@ -1592,7 +1591,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         const request1 = requestSpy.calls.mostRecent().args[1];
 
-        const bodyParts1 = shaka.util.StringUtils.fromUTF8(request1.body).split(",");
+        const bodyParts1 = shaka.util.StringUtils.fromUTF8(request1.body).split(',');
         expect(bodyParts1.some((p) => p.startsWith('msd='))).toBe(true);
 
         // Reset the spy for the second request
@@ -1611,7 +1610,7 @@ describe('CmcdManager Setup', () => {
         // Verify that second CMCD request was made but does not contain msd
         expect(requestSpy).toHaveBeenCalled();
         const request2 = requestSpy.calls.mostRecent().args[1];
-        const bodyParts2 = shaka.util.StringUtils.fromUTF8(request2.body).split(",");
+        const bodyParts2 = shaka.util.StringUtils.fromUTF8(request2.body).split(',');
         expect(bodyParts2.some((p) => p.startsWith('msd='))).toBe(false);
       });
 
@@ -1666,7 +1665,7 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('sf=d'))).toBe(true);
       });
 
@@ -1725,7 +1724,7 @@ describe('CmcdManager Setup', () => {
         // Verify that first CMCD request was made and contains bs
         expect(requestSpy).toHaveBeenCalled();
         const request1 = requestSpy.calls.mostRecent().args[1];
-        const body1Parts = shaka.util.StringUtils.fromUTF8(request1.body).split(",");
+        const body1Parts = shaka.util.StringUtils.fromUTF8(request1.body).split(',');
         expect(body1Parts.some((p) => p.startsWith('bs'))).toBe(true);
 
         // Reset the spy for the second request
@@ -1741,7 +1740,7 @@ describe('CmcdManager Setup', () => {
         // Verify that second CMCD request was made but does not contain bs
         expect(requestSpy).toHaveBeenCalled();
         const request2 = requestSpy.calls.mostRecent().args[1];
-        const body2Parts = shaka.util.StringUtils.fromUTF8(request2.body).split(",");
+        const body2Parts = shaka.util.StringUtils.fromUTF8(request2.body).split(',');
         expect(body2Parts.some((p) => p.startsWith('bs'))).toBe(false);
       });
 
@@ -1815,10 +1814,9 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const decodedUri = decodeURIComponent(request.uris[0]);
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
 
-        expect(bodyParts.some((p) => p.startsWith('rtp='))).toBe(true);  
+        expect(bodyParts.some((p) => p.startsWith('rtp='))).toBe(true);
       });
 
       it('sends ttfb and ttlb query', () => {
@@ -1857,7 +1855,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('ttfb=150'))).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('ttlb=400'))).toBe(true);
       });
@@ -1926,7 +1924,7 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('nor="next-seg.m4v"'))).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('nrr='))).toBe(false);
       });
@@ -1980,11 +1978,10 @@ describe('CmcdManager Setup', () => {
         const expectedUrlParam = `url="${expectedCleanUrl}"`;
         const unexpectedUrlParam = `url="${response.originalUri}"`;
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
 
         expect(bodyParts.some((p) => p === expectedUrlParam)).toBe(true);
         expect(bodyParts.some((p) => p === unexpectedUrlParam)).toBe(false);
-
       });
 
       it('cmcd url key preserves other query parameters', () => {
@@ -2029,12 +2026,11 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const decodedUri = decodeURIComponent(request.uris[0]);
 
         const expectedCleanUrl = 'https://initial.com/v2seg.mp4?foo=bar&baz=qux';
         const expectedUrlParam = `url="${expectedCleanUrl}"`;
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === expectedUrlParam)).toBe(true);
       });
 
@@ -2077,7 +2073,7 @@ describe('CmcdManager Setup', () => {
         const request = requestSpy.calls.mostRecent().args[1];
         const expectedUrlParam = `url="${originalUrl}"`;
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === expectedUrlParam)).toBe(true);
       });
 
@@ -2126,7 +2122,7 @@ describe('CmcdManager Setup', () => {
         const expectedCleanUrl = 'https://initial.com/v2seg.mp4#t=10';
         const expectedUrlParam = `url="${expectedCleanUrl}"`;
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === expectedUrlParam)).toBe(true);
       });
 
@@ -2175,7 +2171,7 @@ describe('CmcdManager Setup', () => {
         const expectedCleanUrl = 'https://initial.com/v2seg.mp4';
         const expectedUrlParam = `url="${expectedCleanUrl}"`;
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === expectedUrlParam)).toBe(true);
       });
 
@@ -2258,7 +2254,7 @@ describe('CmcdManager Setup', () => {
             .toBe(encodedCmsddData.toString());
       });
 
-      
+
       it('should not include cmsdd if header is not present', () => {
         const cmcdManager = createCmcdManager(
             mockPlayer,
@@ -2318,9 +2314,9 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('rtp='))).toBe(true);
-        expect(bodyParts.some((p) => p.startsWith('nrr='))).toBe(false);        
+        expect(bodyParts.some((p) => p.startsWith('nrr='))).toBe(false);
       });
 
 
@@ -2434,7 +2430,7 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const request = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('ts='))).toBe(true);
       });
 
@@ -2481,7 +2477,7 @@ describe('CmcdManager Setup', () => {
         // Verify that a CMCD request was made
         expect(requestSpy).toHaveBeenCalled();
         const cmcdRequest = requestSpy.calls.mostRecent().args[1];
-        const bodyParts = shaka.util.StringUtils.fromUTF8(cmcdRequest.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(cmcdRequest.body).split(',');
         expect(bodyParts.some((p) => p === 'ts=1234567890000')).toBe(true);
         expect(bodyParts.some((p) => p === 'ts=9876543210000')).toBe(false);
       });
@@ -2783,7 +2779,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
@@ -2792,7 +2788,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
@@ -2801,7 +2797,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=a')).toBe(true);
 
@@ -2809,7 +2805,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=k')).toBe(true);
       });
@@ -2841,7 +2837,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=m')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
 
@@ -2854,7 +2850,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=um')).toBe(true);
       });
 
@@ -2888,7 +2884,7 @@ describe('CmcdManager Setup', () => {
           const request = /** @type {!jasmine.Spy} */ (requestSpy)
               .calls.mostRecent().args[1];
 
-          const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+          const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
           expect(bodyParts.some((p) => p === 'e=t')).toBe(true);
           expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
         });
@@ -2950,7 +2946,7 @@ describe('CmcdManager Setup', () => {
           const request = /** @type {!jasmine.Spy} */ (requestSpy)
               .calls.mostRecent().args[1];
 
-          const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+          const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
           expect(bodyParts.some((p) => p === 'e=t')).toBe(true);
           expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
         });
@@ -2983,7 +2979,7 @@ describe('CmcdManager Setup', () => {
             .calls.mostRecent().args[1];
         expect(requestSpy).toHaveBeenCalled();
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('msd='))).toBe(true);
 
         mockVideo.dispatchEvent(new shaka.util.FakeEvent('pause'));
@@ -2991,7 +2987,7 @@ describe('CmcdManager Setup', () => {
             .calls.mostRecent().args[1];
         expect(requestSpy).toHaveBeenCalled();
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('msd='))).toBe(false);
 
         mockVideo.dispatchEvent(new shaka.util.FakeEvent('play'));
@@ -2999,7 +2995,7 @@ describe('CmcdManager Setup', () => {
             .calls.mostRecent().args[1];
         expect(requestSpy).toHaveBeenCalled();
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('msd='))).toBe(false);
       });
 
@@ -3043,7 +3039,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=m')).toBe(true);
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(false);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(false);
@@ -3077,7 +3073,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('mtp='))).toBe(true);
@@ -3089,7 +3085,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('mtp='))).toBe(true);
@@ -3157,7 +3153,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p === 'd=')).toBe(false);
@@ -3169,7 +3165,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts.some((p) => p === 'd=')).toBe(false);
@@ -3213,12 +3209,12 @@ describe('CmcdManager Setup', () => {
         const playCall2 = playCalls.find((req) => req.uris[0].startsWith('https://example.com/cmcd2'));
 
         // Assertions for the 'play' event
-        const bodyParts1 = shaka.util.StringUtils.fromUTF8(playCall1.body).split(",");
+        const bodyParts1 = shaka.util.StringUtils.fromUTF8(playCall1.body).split(',');
         expect(bodyParts1.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts1.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts1.some((p) => p === 'v=2')).toBe(false);
 
-        const bodyParts2 = shaka.util.StringUtils.fromUTF8(playCall2.body).split(",");
+        const bodyParts2 = shaka.util.StringUtils.fromUTF8(playCall2.body).split(',');
         expect(bodyParts2.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts2.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts2.some((p) => p === 'v=2')).toBe(true);
@@ -3239,12 +3235,12 @@ describe('CmcdManager Setup', () => {
         const playingCall2 = playingCalls.find((req) => req.uris[0].startsWith('https://example.com/cmcd2'));
 
         // Assertions for the 'playing' event
-        const bodyParts3 = shaka.util.StringUtils.fromUTF8(playingCall1.body).split(",");
+        const bodyParts3 = shaka.util.StringUtils.fromUTF8(playingCall1.body).split(',');
         expect(bodyParts3.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts3.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts3.some((p) => p === 'v=2')).toBe(false);
 
-        const bodyParts4 = shaka.util.StringUtils.fromUTF8(playingCall2.body).split(",");
+        const bodyParts4 = shaka.util.StringUtils.fromUTF8(playingCall2.body).split(',');
         expect(bodyParts4.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts4.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts4.some((p) => p === 'v=2')).toBe(true);
@@ -3271,7 +3267,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('ts='))).toBe(true);
@@ -3326,7 +3322,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p.startsWith('rc='))).toBe(false);
@@ -3357,7 +3353,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p.startsWith('ts='))).toBe(true);
       });
 
@@ -3384,7 +3380,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
 
         // Check for essential event keys
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
@@ -3395,7 +3391,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalled();
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
 
         // Check for essential event keys
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
@@ -3430,7 +3426,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
 
@@ -3439,7 +3435,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(true);
 
@@ -3450,7 +3446,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=m')).toBe(true);
 
         mockMediaElement.muted = false;
@@ -3459,7 +3455,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalledTimes(4);
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=um')).toBe(true);
       });
 
@@ -3490,7 +3486,7 @@ describe('CmcdManager Setup', () => {
         let request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=s')).toBe(true);
         expect(bodyParts.some((p) => p === `sid="${sessionId}"`)).toBe(true);
@@ -3502,8 +3498,8 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalledTimes(2);
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
-  
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=p')).toBe(true);
         expect(bodyParts.some((p) => p === `sid="${sessionId}"`)).toBe(true);
@@ -3518,7 +3514,7 @@ describe('CmcdManager Setup', () => {
         request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=m')).toBe(true);
         expect(bodyParts.some((p) => p === `sid="${sessionId}"`)).toBe(true);
         expect(bodyParts.some((p) => p === 'cid="v2-event-content-all"')).toBe(true);
@@ -3555,7 +3551,7 @@ describe('CmcdManager Setup', () => {
         const request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=r')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
@@ -3586,7 +3582,7 @@ describe('CmcdManager Setup', () => {
         const request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=d')).toBe(true);
       });
@@ -3628,7 +3624,7 @@ describe('CmcdManager Setup', () => {
         let request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pe')).toBe(true);
 
         // Mock fullscreenElement to simulate exiting fullscreen
@@ -3642,7 +3638,7 @@ describe('CmcdManager Setup', () => {
         request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pc')).toBe(true);
 
         // Restore original property
@@ -3681,7 +3677,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=e')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
@@ -3716,7 +3712,7 @@ describe('CmcdManager Setup', () => {
         const request = /** @type {!jasmine.Spy} */ (requestSpy)
             .calls.mostRecent().args[1];
 
-        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        const bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=ps')).toBe(true);
         expect(bodyParts.some((p) => p === 'sta=w')).toBe(true);
         expect(bodyParts.some((p) => p === 'v=2')).toBe(true);
@@ -3749,7 +3745,7 @@ describe('CmcdManager Setup', () => {
         let request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pe')).toBe(true);
 
         // Simulate leaving Picture-in-Picture
@@ -3759,7 +3755,7 @@ describe('CmcdManager Setup', () => {
         expect(requestSpy).toHaveBeenCalledTimes(2);
         request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pc')).toBe(true);
       });
 
@@ -3803,7 +3799,7 @@ describe('CmcdManager Setup', () => {
         let request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        let bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pe')).toBe(true);
 
         // Simulate exiting fullscreen via webkit presentation mode
@@ -3815,7 +3811,7 @@ describe('CmcdManager Setup', () => {
         request = (/** @type {!jasmine.Spy} */ (requestSpy))
             .calls.mostRecent().args[1];
 
-        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(",");
+        bodyParts = shaka.util.StringUtils.fromUTF8(request.body).split(',');
         expect(bodyParts.some((p) => p === 'e=pc')).toBe(true);
       });
 
@@ -3876,8 +3872,8 @@ describe('CmcdManager Setup', () => {
             const firstRequest = freshRequestSpy.calls.argsFor(0)[1];
             const secondRequest = freshRequestSpy.calls.argsFor(1)[1];
 
-            const firstBodyParts = shaka.util.StringUtils.fromUTF8(firstRequest.body).split(",");
-            const secondBodyParts = shaka.util.StringUtils.fromUTF8(secondRequest.body).split(",");
+            const firstBodyParts = shaka.util.StringUtils.fromUTF8(firstRequest.body).split(',');
+            const secondBodyParts = shaka.util.StringUtils.fromUTF8(secondRequest.body).split(',');
 
             expect(firstRequest.uris[0]).toContain('target1.com');
             expect(firstBodyParts.some((p) => p === 'e=rr')).toBe(true);
@@ -3891,7 +3887,7 @@ describe('CmcdManager Setup', () => {
             expect(secondBodyParts.some((p) => p === 'sta=s')).toBe(true);
             expect(secondBodyParts.some((p) => p.startsWith('ts='))).toBe(true);
             expect(secondBodyParts.some((p) => p.startsWith('rc'))).toBe(false);
-            expect(secondBodyParts.some((p) => p.startsWith('url'))).toBe(false);            
+            expect(secondBodyParts.some((p) => p.startsWith('url'))).toBe(false);
           });
 
       it('maintains separate state between targets processing same event',
@@ -3947,15 +3943,12 @@ describe('CmcdManager Setup', () => {
             const firstRequest = freshRequestSpy.calls.argsFor(0)[1];
             const secondRequest = freshRequestSpy.calls.argsFor(1)[1];
 
-            const firstDecodedUri = decodeURIComponent(firstRequest.uris[0]);
-            const secondDecodedUri = decodeURIComponent(secondRequest.uris[0]);
-
-            const firstBodyParts = shaka.util.StringUtils.fromUTF8(firstRequest.body).split(",");
-            const secondBodyParts = shaka.util.StringUtils.fromUTF8(secondRequest.body).split(",");
+            const firstBodyParts = shaka.util.StringUtils.fromUTF8(firstRequest.body).split(',');
+            const secondBodyParts = shaka.util.StringUtils.fromUTF8(secondRequest.body).split(',');
 
             // Both targets should have independent sequence numbers = 1
-            expect(firstBodyParts.some((p) => p === "sn=1")).toBe(true);
-            expect(secondBodyParts.some((p) => p === "sn=1")).toBe(true);
+            expect(firstBodyParts.some((p) => p === 'sn=1')).toBe(true);
+            expect(secondBodyParts.some((p) => p === 'sn=1')).toBe(true);
 
             expect(firstRequest.uris[0]).toContain('target1.com');
             expect(secondRequest.uris[0]).toContain('target2.com');
